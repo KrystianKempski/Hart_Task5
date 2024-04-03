@@ -1,22 +1,25 @@
 ﻿
-using Hart_Task3;
+using Hart_Task5;
 using System.Reflection.Metadata;
 
 internal class Program
 {
-    class SomeClass
+    class ExaminedClass
     {
         protected decimal PropA { get; }
-        public string Property1 { get; set; }
-        public string Method1(int value) { return " ss"; }
-        public void MethodB(int arg, string arg2) { }
+        private int PrivateProp { get; set; }
+
+        public string PublicProperty1 { get; set; }
         public int field1;
-        private DateTime? fieldB;
+        protected int protectedField;
+        private DateTime? fielDateTime;
+        public string Method1(int value) { return "test"; }
+        public void MethodB(int arg, string arg2) { }
     }
     private static void Main(string[] args)
     {
 
-        SomeClass typ = new SomeClass();
+        ExaminedClass typ = new ExaminedClass();
 
         DocHelper.ShowInfo(typ);
     }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 
-namespace Hart_Task3
+namespace Hart_Task5
 {
     public class DocHelper
     {
@@ -16,7 +16,7 @@ namespace Hart_Task3
 
             Type t = obj.GetType();
             TypeInfo typeinfo = t.GetTypeInfo();
-            IEnumerable<PropertyInfo> props = t.GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+            IEnumerable<PropertyInfo> props = t.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance | BindingFlags.DeclaredOnly);
             IEnumerable<MethodInfo> methods = t.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance | BindingFlags.DeclaredOnly).Where(m => !m.IsSpecialName);
             IEnumerable<FieldInfo> fields = t.GetFields(BindingFlags.Public | BindingFlags.NonPublic |  BindingFlags.Instance | BindingFlags.DeclaredOnly).Where(m => !m.Name.Contains("BackingField"));
 
@@ -27,18 +27,19 @@ namespace Hart_Task3
                 string acces = string.Empty, getname = string.Empty, setname=string.Empty;
 
 
-                if((prop.CanRead && prop.GetGetMethod().IsPublic) || (prop.CanWrite && prop.GetSetMethod().IsPublic))
-                {
+                if (prop.GetMethod.IsPublic)
+                { 
                     acces = "public";
                 }
-                else if ((prop.CanRead && prop.GetGetMethod().IsPrivate) || (prop.CanWrite && prop.GetSetMethod().IsPrivate))
+                else if (prop.GetMethod.IsPrivate)
                 {
                     acces = "private";
-                }else if ((prop.CanRead && prop.GetGetMethod().IsFamily) || (prop.CanWrite && prop.GetSetMethod().IsFamily))
+                }
+                else if (prop.GetMethod.IsFamily)
                 {
                     acces = "protected";
                 }
-                if ((prop.CanRead && prop.GetGetMethod().IsVirtual)|| (prop.CanWrite && prop.GetSetMethod().IsVirtual))
+                if (prop.GetMethod.IsVirtual)
                     acces += " virtual";
                 if (prop.CanRead == true)
                 {
